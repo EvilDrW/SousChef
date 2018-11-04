@@ -1,0 +1,10 @@
+[{ "id" : "03c61f1508f9e833", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.2400005716272, "name" : "cup" },
+{ "name" : "each", "conversionFactor" : 1, "baseUnit" : null, "id" : "4334e5a1d08b08a9" },
+{ "id" : "702aaa7db3abea05", "baseUnit" : "", "conversionFactor" : 1, "name" : "liter" },
+{ "id" : "7cc29b4635e358be", "baseUnit" : "b1f41a90373dc837", "conversionFactor" : 0.453592, "name" : "pound" },
+{ "id" : "91d90d99321c8885", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.001, "name" : "milliliter" },
+{ "id" : "9243fd73c1c4a9db", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.0147868, "name" : "tablespoon" },
+{ "name" : "kilogram", "conversionFactor" : 1, "baseUnit" : null, "id" : "b1f41a90373dc837" },
+{ "name" : "ounce", "conversionFactor" : 35.274, "baseUnit" : "b1f41a90373dc837", "id" : "b34bf46b9bad18b2" },
+{ "id" : "c53f09d5d0cc6877", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.004928931739603077, "name" : "teaspoon" },
+{ "id" : "ee3b71905c0db8ed", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.9463552000045197, "name" : "quart" }]

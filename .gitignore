@@ -59,3 +59,17 @@ typings/
 
 # next.js build output
 .next
+
+# Cordova
+platforms
+plugins
+res
+.gradle
+
+# res
+resources/signing
+
+# souschef recipes data
+recipes.json
+
+backup

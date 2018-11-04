@@ -1,0 +1,36 @@
+<div class="card mb-4" *ngIf="recipe">
+  <div class="card-body">
+    <div class="card-title"><h4>{{ recipe.title }}
+        <button class="btn btn-danger float-right" (click)="close()"><span>&times;</span></button>
+      </h4>
+    </div>
+    <div class="card-subtitle text-muted">
+      From {{ recipe.source.name }} ({{ recipe.source.year }}-{{ recipe.source.month }})<br />
+      Serves <span *ngIf="recipe.servings.min != recipe.servings.max">{{ recipe.servings.min }} to </span>{{ recipe.servings.max }}
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <div class="col-md-6" *ngFor="let i of recipe.ingredients">
+        <app-ingredient [data]="i"></app-ingredient>
+      </div>
+    </div>
+
+    <br/>
+
+    <ngb-tabset [justify]="'justified'" type="pills">
+      <ngb-tab *ngIf="recipe.notes" title="Notes">
+        <ng-template ngbTabContent>{{ recipe.notes }}</ng-template>
+      </ngb-tab>
+      <ngb-tab *ngFor="let step of recipe.steps; let i = index" title="{{ i + 1 }}">
+        <ng-template ngbTabContent>
+          <p>{{ step }}</p>
+          <div *ngIf="timers[i].time != 0">
+            <button class="btn btn-light" (click)="addTimer(timers[i])">Add {{ timers[i].time }} second timer</button>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

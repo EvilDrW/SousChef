@@ -1,0 +1,68 @@
+<ng-template #recipeMakerContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Creating New Recipe</h4>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span>&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input class="form-control" type="text" [(ngModel)]="data.title" placeholder="Recipe Name" ng-required="true">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" [(ngModel)]="data.servings.min" placeholder="Minimum Servings">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" [(ngModel)]="data.servings.max" placeholder="Maximum Servings">
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <!-- should have the month/year selector here -->
+          </div>
+        </div>
+        <textarea class="form-control" [(ngModel)]="notes" placeholder="Recipe Notes"></textarea>
+      </div>
+
+      <div class="col-md-8 form-horizontal">
+        <p><strong>Ingredients</strong></p>
+        <div class="form-group" *ngFor="let ingredient of data.ingredients">
+          <!--<ingredient-section ng-if="data.ingredientSectionIndex($index) >= 0" model-index="data.ingredientSectionIndex($index)"></ingredient-section>-->
+          <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="ingredient.quantity" step="any">
+          </div>
+          <div class="col-md-3">
+            <app-unit-select [dataId]="ingredient.unit"></app-unit-select>
+          </div>
+          <div class="col-md-3">
+            <app-ingredient-select [dataId]="ingredient.id"></app-ingredient-select>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" [(ngModel)]="ingredient.notes">
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-light" (click)="removeIngredient($index)"><span>&times;</span></button>
+          </div>
+        </div>
+        <button class="btn btn-light" (click)="addIngredient()">Add Ingredient</button>
+        <button class="btn btn-light" (click)="addIngredientSection()">Add Section</button>
+      </div>
+    </div>
+    <hr>
+    <p><strong>Instructions</strong></p>
+    <div class="form-horizontal">
+      <div *ngFor="let step of data.steps">
+        <div class="col-md-1">{{ $index+1 }}.</div>
+        <div class="col-md-11">
+          <textarea class="form-control" [(ngModel)]="step.text" placeholder="Instructions"></textarea>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-light" (click)="addStep()"><span class="glyphicon glyphicon-plus"></span> Add Cooking Step</button>
+    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-save"></span> Save Recipe</button>
+  </div>
+  {{ data | json }}
+</ng-template>
+
+<button class="btn btn-lg btn-block btn-outline-primary" (click)="open(recipeMakerContent)">Make New Recipe</button>
