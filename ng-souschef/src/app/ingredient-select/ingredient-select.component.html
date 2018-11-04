@@ -1,7 +1,7 @@
 <input
-type="text"
-[(ngModel)]="dataId"
-[ngbTypeahead]="getIngredients"
-[inputFormatter]="getName" 
-[resultFormatter]="getName"
-class="form-control">
+  type="text"
+  [ngbTypeahead]="getIngredients"
+  [inputFormatter]="getName"
+  [resultFormatter]="getName"
+  (selectItem)="select($event)"
+  class="form-control">

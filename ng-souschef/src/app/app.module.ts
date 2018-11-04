@@ -14,7 +14,6 @@ import { IngredientComponent } from './ingredient/ingredient.component';
 import { UnitComponent } from './unit/unit.component';
 import { TimerComponent } from './timer/timer.component';
 import { RecipeMakerComponent } from './recipe-maker/recipe-maker.component';
-import { UnitSelectComponent } from './unit-select/unit-select.component';
 import { IngredientSelectComponent } from './ingredient-select/ingredient-select.component';
 import { ElapsedTimePipe } from './elapsed-time.pipe';
 import { TimerCollectionComponent } from './timer-collection/timer-collection.component';
@@ -29,7 +28,6 @@ import { TimerCollectionComponent } from './timer-collection/timer-collection.co
     UnitComponent,
     TimerComponent,
     RecipeMakerComponent,
-    UnitSelectComponent,
     IngredientSelectComponent,
     ElapsedTimePipe,
     TimerCollectionComponent

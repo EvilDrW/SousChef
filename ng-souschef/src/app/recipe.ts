@@ -4,7 +4,7 @@ export class Recipe {
 	id: string = '';
 	title: string = '';
 	notes: string = '';
-	steps: string[];
+	steps: string[] = [];
   servings: {
     min: number;
     max: number;

@@ -22,7 +22,7 @@
             <!-- should have the month/year selector here -->
           </div>
         </div>
-        <textarea class="form-control" [(ngModel)]="notes" placeholder="Recipe Notes"></textarea>
+        <textarea class="form-control" [(ngModel)]="data.notes" placeholder="Recipe Notes"></textarea>
       </div>
 
       <div class="col-md-8 form-horizontal">
@@ -33,10 +33,12 @@
             <input type="number" class="form-control" [(ngModel)]="ingredient.quantity" step="any">
           </div>
           <div class="col-md-3">
-            <app-unit-select [dataId]="ingredient.unit"></app-unit-select>
+            <select [(ngModel)]="ingredient.unit" class="custom-select">
+              <option *ngFor="let unit of units" value="{{ unit.id }}">{{ unit.name }}</option>
+            </select>
           </div>
           <div class="col-md-3">
-            <app-ingredient-select [dataId]="ingredient.id"></app-ingredient-select>
+            <app-ingredient-select [(ngModel)]="ingredient.id"></app-ingredient-select>
           </div>
           <div class="col-md-3">
             <input type="text" class="form-control" [(ngModel)]="ingredient.notes">
@@ -52,10 +54,10 @@
     <hr>
     <p><strong>Instructions</strong></p>
     <div class="form-horizontal">
-      <div *ngFor="let step of data.steps">
-        <div class="col-md-1">{{ $index+1 }}.</div>
+      <div *ngFor="let step of data.steps; index as i; trackBy: trackByFn">
+        <div class="col-md-1">{{ i+1 }}.</div>
         <div class="col-md-11">
-          <textarea class="form-control" [(ngModel)]="step.text" placeholder="Instructions"></textarea>
+          <textarea class="form-control" [(ngModel)]="data.steps[i]" placeholder="Instructions"></textarea>
         </div>
       </div>
     </div>
