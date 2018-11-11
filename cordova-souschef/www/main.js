@@ -105,17 +105,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _unit_unit_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./unit/unit.component */ "./src/app/unit/unit.component.ts");
 /* harmony import */ var _timer_timer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./timer/timer.component */ "./src/app/timer/timer.component.ts");
 /* harmony import */ var _recipe_maker_recipe_maker_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./recipe-maker/recipe-maker.component */ "./src/app/recipe-maker/recipe-maker.component.ts");
-/* harmony import */ var _unit_select_unit_select_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./unit-select/unit-select.component */ "./src/app/unit-select/unit-select.component.ts");
-/* harmony import */ var _ingredient_select_ingredient_select_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./ingredient-select/ingredient-select.component */ "./src/app/ingredient-select/ingredient-select.component.ts");
-/* harmony import */ var _elapsed_time_pipe__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./elapsed-time.pipe */ "./src/app/elapsed-time.pipe.ts");
-/* harmony import */ var _timer_collection_timer_collection_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./timer-collection/timer-collection.component */ "./src/app/timer-collection/timer-collection.component.ts");
+/* harmony import */ var _ingredient_select_ingredient_select_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ingredient-select/ingredient-select.component */ "./src/app/ingredient-select/ingredient-select.component.ts");
+/* harmony import */ var _elapsed_time_pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./elapsed-time.pipe */ "./src/app/elapsed-time.pipe.ts");
+/* harmony import */ var _timer_collection_timer_collection_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./timer-collection/timer-collection.component */ "./src/app/timer-collection/timer-collection.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -147,10 +145,9 @@ var AppModule = /** @class */ (function () {
                 _unit_unit_component__WEBPACK_IMPORTED_MODULE_11__["UnitComponent"],
                 _timer_timer_component__WEBPACK_IMPORTED_MODULE_12__["TimerComponent"],
                 _recipe_maker_recipe_maker_component__WEBPACK_IMPORTED_MODULE_13__["RecipeMakerComponent"],
-                _unit_select_unit_select_component__WEBPACK_IMPORTED_MODULE_14__["UnitSelectComponent"],
-                _ingredient_select_ingredient_select_component__WEBPACK_IMPORTED_MODULE_15__["IngredientSelectComponent"],
-                _elapsed_time_pipe__WEBPACK_IMPORTED_MODULE_16__["ElapsedTimePipe"],
-                _timer_collection_timer_collection_component__WEBPACK_IMPORTED_MODULE_17__["TimerCollectionComponent"]
+                _ingredient_select_ingredient_select_component__WEBPACK_IMPORTED_MODULE_14__["IngredientSelectComponent"],
+                _elapsed_time_pipe__WEBPACK_IMPORTED_MODULE_15__["ElapsedTimePipe"],
+                _timer_collection_timer_collection_component__WEBPACK_IMPORTED_MODULE_16__["TimerCollectionComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -248,7 +245,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<input\ntype=\"text\"\n[(ngModel)]=\"dataId\"\n[ngbTypeahead]=\"getIngredients\"\n[inputFormatter]=\"getName\" \n[resultFormatter]=\"getName\"\nclass=\"form-control\">\n"
+module.exports = "<input\n  type=\"text\"\n  [ngbTypeahead]=\"getIngredients\"\n  [inputFormatter]=\"getName\"\n  [resultFormatter]=\"getName\"\n  (selectItem)=\"select($event)\"\n  class=\"form-control\">\n"
 
 /***/ }),
 
@@ -263,9 +260,10 @@ module.exports = "<input\ntype=\"text\"\n[(ngModel)]=\"dataId\"\n[ngbTypeahead]=
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientSelectComponent", function() { return IngredientSelectComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _ingredient_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ingredient.service */ "./src/app/ingredient.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _ingredient_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ingredient.service */ "./src/app/ingredient.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -279,13 +277,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var IngredientSelectComponent = /** @class */ (function () {
     function IngredientSelectComponent(api) {
         var _this = this;
         this.api = api;
+        this.onChangeCallback = function () { };
+        this.onTouchedCallback = function () { };
         this.getIngredients = function (text) {
-            var textAndPantry = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["combineLatest"])(_this.api.getPantry(), text.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["distinctUntilChanged"])()));
-            return textAndPantry.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (_a) {
+            var textAndPantry = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["combineLatest"])(_this.api.getPantry(), text.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["distinctUntilChanged"])()));
+            return textAndPantry.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (_a) {
                 var pantry = _a[0], text = _a[1];
                 if (text.length < 3 || !pantry) {
                     return [];
@@ -297,20 +298,50 @@ var IngredientSelectComponent = /** @class */ (function () {
             }));
         };
         this.getName = function (i) { return i ? i.name : ''; };
+        this.select = function (event) {
+            _this.setValue(event.item.id);
+        };
     }
+    IngredientSelectComponent_1 = IngredientSelectComponent;
     IngredientSelectComponent.prototype.ngOnInit = function () {
     };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], IngredientSelectComponent.prototype, "dataId", void 0);
-    IngredientSelectComponent = __decorate([
+    Object.defineProperty(IngredientSelectComponent.prototype, "value", {
+        get: function () {
+            return this.innerValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    IngredientSelectComponent.prototype.setValue = function (v) {
+        if (v !== this.innerValue) {
+            this.innerValue = v;
+            this.onChangeCallback(this.innerValue);
+        }
+    };
+    ;
+    IngredientSelectComponent.prototype.writeValue = function (obj) {
+        this.setValue(obj);
+    };
+    IngredientSelectComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    IngredientSelectComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    var IngredientSelectComponent_1;
+    IngredientSelectComponent = IngredientSelectComponent_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-ingredient-select',
             template: __webpack_require__(/*! ./ingredient-select.component.html */ "./src/app/ingredient-select/ingredient-select.component.html"),
-            styles: [__webpack_require__(/*! ./ingredient-select.component.css */ "./src/app/ingredient-select/ingredient-select.component.css")]
+            styles: [__webpack_require__(/*! ./ingredient-select.component.css */ "./src/app/ingredient-select/ingredient-select.component.css")],
+            providers: [{
+                    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"],
+                    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return IngredientSelectComponent_1; }),
+                    multi: true
+                }]
         }),
-        __metadata("design:paramtypes", [_ingredient_service__WEBPACK_IMPORTED_MODULE_3__["IngredientService"]])
+        __metadata("design:paramtypes", [_ingredient_service__WEBPACK_IMPORTED_MODULE_4__["IngredientService"]])
     ], IngredientSelectComponent);
     return IngredientSelectComponent;
 }());
@@ -563,7 +594,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #recipeMakerContent let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Creating New Recipe</h4>\n    <button type=\"button\" class=\"close\" (click)=\"modal.dismiss()\">\n      <span>&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"row\">\n      <div class=\"col-md-4\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"text\" [(ngModel)]=\"data.title\" placeholder=\"Recipe Name\" ng-required=\"true\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.min\" placeholder=\"Minimum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.max\" placeholder=\"Maximum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <!-- should have the month/year selector here -->\n          </div>\n        </div>\n        <textarea class=\"form-control\" [(ngModel)]=\"notes\" placeholder=\"Recipe Notes\"></textarea>\n      </div>\n\n      <div class=\"col-md-8 form-horizontal\">\n        <p><strong>Ingredients</strong></p>\n        <div class=\"form-group\" *ngFor=\"let ingredient of data.ingredients\">\n          <!--<ingredient-section ng-if=\"data.ingredientSectionIndex($index) >= 0\" model-index=\"data.ingredientSectionIndex($index)\"></ingredient-section>-->\n          <div class=\"col-md-2\">\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"ingredient.quantity\" step=\"any\">\n          </div>\n          <div class=\"col-md-3\">\n            <app-unit-select [dataId]=\"ingredient.unit\"></app-unit-select>\n          </div>\n          <div class=\"col-md-3\">\n            <app-ingredient-select [dataId]=\"ingredient.id\"></app-ingredient-select>\n          </div>\n          <div class=\"col-md-3\">\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"ingredient.notes\">\n          </div>\n          <div class=\"col-md-1\">\n            <button class=\"btn btn-light\" (click)=\"removeIngredient($index)\"><span>&times;</span></button>\n          </div>\n        </div>\n        <button class=\"btn btn-light\" (click)=\"addIngredient()\">Add Ingredient</button>\n        <button class=\"btn btn-light\" (click)=\"addIngredientSection()\">Add Section</button>\n      </div>\n    </div>\n    <hr>\n    <p><strong>Instructions</strong></p>\n    <div class=\"form-horizontal\">\n      <div *ngFor=\"let step of data.steps\">\n        <div class=\"col-md-1\">{{ $index+1 }}.</div>\n        <div class=\"col-md-11\">\n          <textarea class=\"form-control\" [(ngModel)]=\"step.text\" placeholder=\"Instructions\"></textarea>\n        </div>\n      </div>\n    </div>\n    <button class=\"btn btn-light\" (click)=\"addStep()\"><span class=\"glyphicon glyphicon-plus\"></span> Add Cooking Step</button>\n    <button class=\"btn btn-primary\" type=\"submit\"><span class=\"glyphicon glyphicon-save\"></span> Save Recipe</button>\n  </div>\n  {{ data | json }}\n</ng-template>\n\n<button class=\"btn btn-lg btn-block btn-outline-primary\" (click)=\"open(recipeMakerContent)\">Make New Recipe</button>\n"
+module.exports = "<ng-template #recipeMakerContent let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Creating New Recipe</h4>\n    <button type=\"button\" class=\"close\" (click)=\"modal.dismiss()\">\n      <span>&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"row\">\n      <div class=\"col-md-4\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"text\" [(ngModel)]=\"data.title\" placeholder=\"Recipe Name\" ng-required=\"true\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.min\" placeholder=\"Minimum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.max\" placeholder=\"Maximum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <!-- should have the month/year selector here -->\n          </div>\n        </div>\n        <textarea class=\"form-control\" [(ngModel)]=\"data.notes\" placeholder=\"Recipe Notes\"></textarea>\n      </div>\n\n      <div class=\"col-md-8 form-horizontal\">\n        <p><strong>Ingredients</strong></p>\n        <div class=\"form-group\" *ngFor=\"let ingredient of data.ingredients\">\n          <!--<ingredient-section ng-if=\"data.ingredientSectionIndex($index) >= 0\" model-index=\"data.ingredientSectionIndex($index)\"></ingredient-section>-->\n          <div class=\"col-md-2\">\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"ingredient.quantity\" step=\"any\">\n          </div>\n          <div class=\"col-md-3\">\n            <select [(ngModel)]=\"ingredient.unit\" class=\"custom-select\">\n              <option *ngFor=\"let unit of units\" value=\"{{ unit.id }}\">{{ unit.name }}</option>\n            </select>\n          </div>\n          <div class=\"col-md-3\">\n            <app-ingredient-select [(ngModel)]=\"ingredient.id\"></app-ingredient-select>\n          </div>\n          <div class=\"col-md-3\">\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"ingredient.notes\">\n          </div>\n          <div class=\"col-md-1\">\n            <button class=\"btn btn-light\" (click)=\"removeIngredient($index)\"><span>&times;</span></button>\n          </div>\n        </div>\n        <button class=\"btn btn-light\" (click)=\"addIngredient()\">Add Ingredient</button>\n        <button class=\"btn btn-light\" (click)=\"addIngredientSection()\">Add Section</button>\n      </div>\n    </div>\n    <hr>\n    <p><strong>Instructions</strong></p>\n    <div class=\"form-horizontal\">\n      <div *ngFor=\"let step of data.steps; index as i; trackBy: trackByFn\">\n        <div class=\"col-md-1\">{{ i+1 }}.</div>\n        <div class=\"col-md-11\">\n          <textarea class=\"form-control\" [(ngModel)]=\"data.steps[i]\" placeholder=\"Instructions\"></textarea>\n        </div>\n      </div>\n    </div>\n    <button class=\"btn btn-light\" (click)=\"addStep()\"><span class=\"glyphicon glyphicon-plus\"></span> Add Cooking Step</button>\n    <button class=\"btn btn-primary\" type=\"submit\"><span class=\"glyphicon glyphicon-save\"></span> Save Recipe</button>\n  </div>\n  {{ data | json }}\n</ng-template>\n\n<button class=\"btn btn-lg btn-block btn-outline-primary\" (click)=\"open(recipeMakerContent)\">Make New Recipe</button>\n"
 
 /***/ }),
 
@@ -580,6 +611,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var _recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../recipe */ "./src/app/recipe.ts");
+/* harmony import */ var _unit_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../unit.service */ "./src/app/unit.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -592,19 +624,28 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RecipeMakerComponent = /** @class */ (function () {
-    function RecipeMakerComponent(modalService) {
+    function RecipeMakerComponent(modalService, unitsApi) {
         this.modalService = modalService;
+        this.unitsApi = unitsApi;
     }
     RecipeMakerComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.data = new _recipe__WEBPACK_IMPORTED_MODULE_2__["Recipe"]();
+        this.unitsApi.getAll().subscribe(function (us) { return _this.units = us; });
     };
     RecipeMakerComponent.prototype.open = function (content) {
-        this.modalService.open(content, { size: 'lg' }).result.then(function (something) {
-        });
+        this.modalService.open(content, { size: 'lg' });
     };
     RecipeMakerComponent.prototype.addIngredient = function () {
         this.data.ingredients.push({ id: '', quantity: 0, unit: '', notes: '' });
+    };
+    RecipeMakerComponent.prototype.addStep = function () {
+        this.data.steps.push('');
+    };
+    RecipeMakerComponent.prototype.trackByFn = function (index, item) {
+        return index;
     };
     RecipeMakerComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -612,7 +653,7 @@ var RecipeMakerComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./recipe-maker.component.html */ "./src/app/recipe-maker/recipe-maker.component.html"),
             styles: [__webpack_require__(/*! ./recipe-maker.component.css */ "./src/app/recipe-maker/recipe-maker.component.css")]
         }),
-        __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"]])
+        __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"], _unit_service__WEBPACK_IMPORTED_MODULE_3__["UnitService"]])
     ], RecipeMakerComponent);
     return RecipeMakerComponent;
 }());
@@ -718,6 +759,7 @@ var Recipe = /** @class */ (function () {
         this.id = '';
         this.title = '';
         this.notes = '';
+        this.steps = [];
         this.servings = { min: 0, max: 0 };
         this.source = { name: '', month: 0, year: 0 };
         this.ingredients = [];
@@ -1125,78 +1167,6 @@ var TimerComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], TimerComponent);
     return TimerComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/unit-select/unit-select.component.css":
-/*!*******************************************************!*\
-  !*** ./src/app/unit-select/unit-select.component.css ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/unit-select/unit-select.component.html":
-/*!********************************************************!*\
-  !*** ./src/app/unit-select/unit-select.component.html ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<select [(ngModel)]=\"dataId\" class=\"custom-select\">\n  <option *ngFor=\"let unit of units\" value=\"unit.id\">{{ unit.name }}</option>\n</select>\n"
-
-/***/ }),
-
-/***/ "./src/app/unit-select/unit-select.component.ts":
-/*!******************************************************!*\
-  !*** ./src/app/unit-select/unit-select.component.ts ***!
-  \******************************************************/
-/*! exports provided: UnitSelectComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnitSelectComponent", function() { return UnitSelectComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _unit_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../unit.service */ "./src/app/unit.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var UnitSelectComponent = /** @class */ (function () {
-    function UnitSelectComponent(api) {
-        this.api = api;
-    }
-    UnitSelectComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.api.getAll().subscribe(function (us) { return _this.units = us; });
-    };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], UnitSelectComponent.prototype, "dataId", void 0);
-    UnitSelectComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-unit-select',
-            template: __webpack_require__(/*! ./unit-select.component.html */ "./src/app/unit-select/unit-select.component.html"),
-            styles: [__webpack_require__(/*! ./unit-select.component.css */ "./src/app/unit-select/unit-select.component.css")]
-        }),
-        __metadata("design:paramtypes", [_unit_service__WEBPACK_IMPORTED_MODULE_1__["UnitService"]])
-    ], UnitSelectComponent);
-    return UnitSelectComponent;
 }());
 
 
