@@ -25,3 +25,8 @@ export class RecipeSummary {
   id: string;
   title: string;
 }
+
+export class IngredientSection {
+  label: string;
+  ingredients: RecipeIngredient[];
+}

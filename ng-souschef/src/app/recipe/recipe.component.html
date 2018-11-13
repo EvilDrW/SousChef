@@ -11,9 +11,12 @@
 
     <br/>
 
-    <div class="row">
-      <div class="col-md-6" *ngFor="let i of recipe.ingredients">
-        <app-ingredient [data]="i"></app-ingredient>
+    <div class="row" *ngFor="let section of sections">
+      <div class="col-md-12" *ngIf="section.label">
+        <strong>{{ section.label }}</strong>
+      </div>
+      <div class="col-md-6" *ngFor="let ingredient of section.ingredients">
+        <app-ingredient [data]="ingredient"></app-ingredient>
       </div>
     </div>
 

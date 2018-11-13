@@ -747,13 +747,14 @@ var RecipeService = /** @class */ (function () {
 /*!***************************!*\
   !*** ./src/app/recipe.ts ***!
   \***************************/
-/*! exports provided: Recipe, RecipeSummary */
+/*! exports provided: Recipe, RecipeSummary, IngredientSection */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Recipe", function() { return Recipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeSummary", function() { return RecipeSummary; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientSection", function() { return IngredientSection; });
 var Recipe = /** @class */ (function () {
     function Recipe() {
         this.id = '';
@@ -772,6 +773,12 @@ var RecipeSummary = /** @class */ (function () {
     function RecipeSummary() {
     }
     return RecipeSummary;
+}());
+
+var IngredientSection = /** @class */ (function () {
+    function IngredientSection() {
+    }
+    return IngredientSection;
 }());
 
 
@@ -796,7 +803,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card mb-4\" *ngIf=\"recipe\">\n  <div class=\"card-body\">\n    <div class=\"card-title\"><h4>{{ recipe.title }}\n        <button class=\"btn btn-danger float-right\" (click)=\"close()\"><span>&times;</span></button>\n      </h4>\n    </div>\n    <div class=\"card-subtitle text-muted\">\n      From {{ recipe.source.name }} ({{ recipe.source.year }}-{{ recipe.source.month }})<br />\n      Serves <span *ngIf=\"recipe.servings.min != recipe.servings.max\">{{ recipe.servings.min }} to </span>{{ recipe.servings.max }}\n    </div>\n\n    <br/>\n\n    <div class=\"row\">\n      <div class=\"col-md-6\" *ngFor=\"let i of recipe.ingredients\">\n        <app-ingredient [data]=\"i\"></app-ingredient>\n      </div>\n    </div>\n\n    <br/>\n\n    <ngb-tabset [justify]=\"'justified'\" type=\"pills\">\n      <ngb-tab *ngIf=\"recipe.notes\" title=\"Notes\">\n        <ng-template ngbTabContent>{{ recipe.notes }}</ng-template>\n      </ngb-tab>\n      <ngb-tab *ngFor=\"let step of recipe.steps; let i = index\" title=\"{{ i + 1 }}\">\n        <ng-template ngbTabContent>\n          <p>{{ step }}</p>\n          <div *ngIf=\"timers[i].time != 0\">\n            <button class=\"btn btn-light\" (click)=\"addTimer(timers[i])\">Add {{ timers[i].time }} second timer</button>\n          </div>\n        </ng-template>\n      </ngb-tab>\n    </ngb-tabset>\n  </div>\n</div>\n"
+module.exports = "<div class=\"card mb-4\" *ngIf=\"recipe\">\n  <div class=\"card-body\">\n    <div class=\"card-title\"><h4>{{ recipe.title }}\n        <button class=\"btn btn-danger float-right\" (click)=\"close()\"><span>&times;</span></button>\n      </h4>\n    </div>\n    <div class=\"card-subtitle text-muted\">\n      From {{ recipe.source.name }} ({{ recipe.source.year }}-{{ recipe.source.month }})<br />\n      Serves <span *ngIf=\"recipe.servings.min != recipe.servings.max\">{{ recipe.servings.min }} to </span>{{ recipe.servings.max }}\n    </div>\n\n    <br/>\n\n    <div class=\"row\" *ngFor=\"let section of sections\">\n      <div class=\"col-md-12\" *ngIf=\"section.label\">\n        <strong>{{ section.label }}</strong>\n      </div>\n      <div class=\"col-md-6\" *ngFor=\"let ingredient of section.ingredients\">\n        <app-ingredient [data]=\"ingredient\"></app-ingredient>\n      </div>\n    </div>\n\n    <br/>\n\n    <ngb-tabset [justify]=\"'justified'\" type=\"pills\">\n      <ngb-tab *ngIf=\"recipe.notes\" title=\"Notes\">\n        <ng-template ngbTabContent>{{ recipe.notes }}</ng-template>\n      </ngb-tab>\n      <ngb-tab *ngFor=\"let step of recipe.steps; let i = index\" title=\"{{ i + 1 }}\">\n        <ng-template ngbTabContent>\n          <p>{{ step }}</p>\n          <div *ngIf=\"timers[i].time != 0\">\n            <button class=\"btn btn-light\" (click)=\"addTimer(timers[i])\">Add {{ timers[i].time }} second timer</button>\n          </div>\n        </ng-template>\n      </ngb-tab>\n    </ngb-tabset>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -834,6 +841,7 @@ var RecipeComponent = /** @class */ (function () {
         var _this = this;
         this.api.getRecipe(this.dataId).subscribe(function (recipe) {
             _this.recipe = recipe;
+            _this.sections = _this.getIngredientSections();
             _this.timers = _this.recipe.steps.map(function (stepText) {
                 var newTimer = { time: 0, description: '' };
                 var matches = /(?:\.|,)(?: and )?\s*([a-zA-Z\s]+)(?:[0-9]+-|[0-9]+ to )?([0-9]+) (hour|minute|second)/.exec(stepText);
@@ -854,6 +862,26 @@ var RecipeComponent = /** @class */ (function () {
                 return newTimer;
             });
         });
+    };
+    RecipeComponent.prototype.getIngredientSections = function () {
+        var _this = this;
+        if (!this.recipe.ingredientSections || (this.recipe.ingredientSections.length == 0)) {
+            return [{
+                    label: null,
+                    ingredients: this.recipe.ingredients
+                }];
+        }
+        else {
+            return this.recipe.ingredientSections.map(function (section, i) {
+                var nextIndex = (_this.recipe.ingredientSections.length - 1 == i) ?
+                    _this.recipe.ingredients.length :
+                    _this.recipe.ingredientSections[i + 1].index;
+                return {
+                    label: section.label,
+                    ingredients: _this.recipe.ingredients.slice(section.index, nextIndex)
+                };
+            });
+        }
     };
     RecipeComponent.prototype.close = function () {
         this.api.unloadRecipe(this.recipe.id);
