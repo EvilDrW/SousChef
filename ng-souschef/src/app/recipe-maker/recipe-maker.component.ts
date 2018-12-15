@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Recipe } from '../recipe';
 import { Unit } from '../unit';
 import { UnitService } from '../unit.service';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-recipe-maker',
@@ -13,15 +14,20 @@ export class RecipeMakerComponent implements OnInit {
   data: Recipe;
   units: Unit[];
 
-  constructor(private modalService: NgbModal, private unitsApi: UnitService) { }
+  @ViewChild('recipeMakerContent')
+  private modalRef: TemplateRef<any>;
+
+  constructor(private modalService: NgbModal, private unitsApi: UnitService, private modalControl: ModalService) {
+    this.modalControl.recipeMaker.subscribe((val) => {
+      if (val === 'open') {
+        this.modalService.open(this.modalRef, { size: 'lg' });
+      }
+    })
+  }
 
   ngOnInit() {
      this.data = new Recipe();
      this.unitsApi.getAll().subscribe((us) => this.units = us);
-  }
-
-  open(content) {
-    this.modalService.open(content, { size: 'lg' });
   }
 
   addIngredient() {

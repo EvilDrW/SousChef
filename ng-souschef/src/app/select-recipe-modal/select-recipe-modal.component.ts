@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeService } from '../recipe.service';
 import { RecipeSummary } from '../recipe';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-select-recipe-modal',
@@ -11,7 +12,16 @@ import { RecipeSummary } from '../recipe';
 export class SelectRecipeModalComponent implements OnInit {
   recipes: RecipeSummary[];
 
-  constructor(private api: RecipeService, private modalService: NgbModal) { }
+  @ViewChild('recipeSelectContent')
+  private modalRef: TemplateRef<any>;
+
+  constructor(private api: RecipeService, private modalService: NgbModal, private modalControl: ModalService) {
+    this.modalControl.selectRecipe.subscribe((val) => {
+      if (val === 'open') {
+        this.modalService.open(this.modalRef, { size: 'lg' });
+      }
+    })
+  }
 
   ngOnInit() {
     this.api.getRecipeNames().subscribe((data) => {
@@ -23,12 +33,6 @@ export class SelectRecipeModalComponent implements OnInit {
           return 1;
         }
       })
-    });
-  }
-
-  open(content) {
-    this.modalService.open(content).result.then((something) => {
-
     });
   }
 

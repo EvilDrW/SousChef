@@ -9,5 +9,3 @@
     <button *ngFor="let recipe of recipes" class="btn btn-light btn-block" (click)="select(recipe.id)">{{ recipe.title }}</button>
   </div>
 </ng-template>
-
-<button class="btn btn-lg btn-block btn-outline-primary" (click)="open(recipeSelectContent)">Open Recipes</button>

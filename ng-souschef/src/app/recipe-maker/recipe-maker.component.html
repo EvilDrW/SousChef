@@ -27,7 +27,7 @@
 
       <div class="col-md-8 form-horizontal">
         <p><strong>Ingredients</strong></p>
-        <div class="form-group" *ngFor="let ingredient of data.ingredients">
+        <div class="row" *ngFor="let ingredient of data.ingredients">
           <!--<ingredient-section ng-if="data.ingredientSectionIndex($index) >= 0" model-index="data.ingredientSectionIndex($index)"></ingredient-section>-->
           <div class="col-md-2">
             <input type="number" class="form-control" [(ngModel)]="ingredient.quantity" step="any">
@@ -66,5 +66,3 @@
   </div>
   {{ data | json }}
 </ng-template>
-
-<button class="btn btn-lg btn-block btn-outline-primary" (click)="open(recipeMakerContent)">Make New Recipe</button>
