@@ -5,7 +5,7 @@
       </h4>
     </div>
     <div class="card-subtitle text-muted">
-      From {{ recipe.source.name }} ({{ recipe.source.year }}-{{ recipe.source.month }})<br />
+      From {{ recipe.source.name }}<span *ngIf="recipe.source.year != 0"> ({{ recipe.source.year }}-{{ recipe.source.month }})</span><br />
       Serves <span *ngIf="recipe.servings.min != recipe.servings.max">{{ recipe.servings.min }} to </span>{{ recipe.servings.max }}
     </div>
 

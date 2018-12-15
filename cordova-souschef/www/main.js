@@ -41,7 +41,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\" style=\"padding-top: 15px\">\n  <div class=\"row\">\n    <div class=\"col-md-3\">\n      <app-select-recipe-modal></app-select-recipe-modal>\n      <app-recipe-maker></app-recipe-maker>\n      <app-timer-collection></app-timer-collection>\n    </div>\n    <div class=\"col-md-9\">\n      <div class=\"row\">\n        <app-recipe-collection></app-recipe-collection>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\" style=\"padding-top: 15px\">\n  <app-recipe-maker></app-recipe-maker>\n  <app-select-recipe-modal></app-select-recipe-modal>\n\n  <div class=\"row\">\n    <div class=\"col-md-2\">\n      <div class=\"btn-group-vertical\" style=\"width: 100%\">\n        <button class=\"btn btn-outline-primary\" (click)=\"openModal('recipeMaker')\">Make New Recipe</button>\n        <button class=\"btn btn-outline-primary\" (click)=\"openModal('selectRecipe')\">Open Recipes</button>\n      </div>\n      <app-timer-collection></app-timer-collection>\n    </div>\n    <div class=\"col-md-10\">\n      <div class=\"row\">\n        <app-recipe-collection></app-recipe-collection>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -56,23 +56,33 @@ module.exports = "<div class=\"container-fluid\" style=\"padding-top: 15px\">\n 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal.service */ "./src/app/modal.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(modalService) {
+        this.modalService = modalService;
         this.title = 'souschef';
     }
+    AppComponent.prototype.openModal = function (modal) {
+        this.modalService[modal].next('open');
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_modal_service__WEBPACK_IMPORTED_MODULE_1__["ModalService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -510,6 +520,47 @@ var IngredientComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modal.service.ts":
+/*!**********************************!*\
+  !*** ./src/app/modal.service.ts ***!
+  \**********************************/
+/*! exports provided: ModalService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalService", function() { return ModalService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ModalService = /** @class */ (function () {
+    function ModalService() {
+        this.recipeMaker = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+        this.selectRecipe = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+    }
+    ModalService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], ModalService);
+    return ModalService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/recipe-collection/recipe-collection.component.css":
 /*!*******************************************************************!*\
   !*** ./src/app/recipe-collection/recipe-collection.component.css ***!
@@ -594,7 +645,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #recipeMakerContent let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Creating New Recipe</h4>\n    <button type=\"button\" class=\"close\" (click)=\"modal.dismiss()\">\n      <span>&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"row\">\n      <div class=\"col-md-4\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"text\" [(ngModel)]=\"data.title\" placeholder=\"Recipe Name\" ng-required=\"true\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.min\" placeholder=\"Minimum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.max\" placeholder=\"Maximum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <!-- should have the month/year selector here -->\n          </div>\n        </div>\n        <textarea class=\"form-control\" [(ngModel)]=\"data.notes\" placeholder=\"Recipe Notes\"></textarea>\n      </div>\n\n      <div class=\"col-md-8 form-horizontal\">\n        <p><strong>Ingredients</strong></p>\n        <div class=\"form-group\" *ngFor=\"let ingredient of data.ingredients\">\n          <!--<ingredient-section ng-if=\"data.ingredientSectionIndex($index) >= 0\" model-index=\"data.ingredientSectionIndex($index)\"></ingredient-section>-->\n          <div class=\"col-md-2\">\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"ingredient.quantity\" step=\"any\">\n          </div>\n          <div class=\"col-md-3\">\n            <select [(ngModel)]=\"ingredient.unit\" class=\"custom-select\">\n              <option *ngFor=\"let unit of units\" value=\"{{ unit.id }}\">{{ unit.name }}</option>\n            </select>\n          </div>\n          <div class=\"col-md-3\">\n            <app-ingredient-select [(ngModel)]=\"ingredient.id\"></app-ingredient-select>\n          </div>\n          <div class=\"col-md-3\">\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"ingredient.notes\">\n          </div>\n          <div class=\"col-md-1\">\n            <button class=\"btn btn-light\" (click)=\"removeIngredient($index)\"><span>&times;</span></button>\n          </div>\n        </div>\n        <button class=\"btn btn-light\" (click)=\"addIngredient()\">Add Ingredient</button>\n        <button class=\"btn btn-light\" (click)=\"addIngredientSection()\">Add Section</button>\n      </div>\n    </div>\n    <hr>\n    <p><strong>Instructions</strong></p>\n    <div class=\"form-horizontal\">\n      <div *ngFor=\"let step of data.steps; index as i; trackBy: trackByFn\">\n        <div class=\"col-md-1\">{{ i+1 }}.</div>\n        <div class=\"col-md-11\">\n          <textarea class=\"form-control\" [(ngModel)]=\"data.steps[i]\" placeholder=\"Instructions\"></textarea>\n        </div>\n      </div>\n    </div>\n    <button class=\"btn btn-light\" (click)=\"addStep()\"><span class=\"glyphicon glyphicon-plus\"></span> Add Cooking Step</button>\n    <button class=\"btn btn-primary\" type=\"submit\"><span class=\"glyphicon glyphicon-save\"></span> Save Recipe</button>\n  </div>\n  {{ data | json }}\n</ng-template>\n\n<button class=\"btn btn-lg btn-block btn-outline-primary\" (click)=\"open(recipeMakerContent)\">Make New Recipe</button>\n"
+module.exports = "<ng-template #recipeMakerContent let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Creating New Recipe</h4>\n    <button type=\"button\" class=\"close\" (click)=\"modal.dismiss()\">\n      <span>&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"row\">\n      <div class=\"col-md-4\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"text\" [(ngModel)]=\"data.title\" placeholder=\"Recipe Name\" ng-required=\"true\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.min\" placeholder=\"Minimum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"data.servings.max\" placeholder=\"Maximum Servings\">\n        </div>\n        <div class=\"form-group\">\n          <div class=\"input-group\">\n            <!-- should have the month/year selector here -->\n          </div>\n        </div>\n        <textarea class=\"form-control\" [(ngModel)]=\"data.notes\" placeholder=\"Recipe Notes\"></textarea>\n      </div>\n\n      <div class=\"col-md-8 form-horizontal\">\n        <p><strong>Ingredients</strong></p>\n        <div class=\"row\" *ngFor=\"let ingredient of data.ingredients\">\n          <!--<ingredient-section ng-if=\"data.ingredientSectionIndex($index) >= 0\" model-index=\"data.ingredientSectionIndex($index)\"></ingredient-section>-->\n          <div class=\"col-md-2\">\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"ingredient.quantity\" step=\"any\">\n          </div>\n          <div class=\"col-md-3\">\n            <select [(ngModel)]=\"ingredient.unit\" class=\"custom-select\">\n              <option *ngFor=\"let unit of units\" value=\"{{ unit.id }}\">{{ unit.name }}</option>\n            </select>\n          </div>\n          <div class=\"col-md-3\">\n            <app-ingredient-select [(ngModel)]=\"ingredient.id\"></app-ingredient-select>\n          </div>\n          <div class=\"col-md-3\">\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"ingredient.notes\">\n          </div>\n          <div class=\"col-md-1\">\n            <button class=\"btn btn-light\" (click)=\"removeIngredient($index)\"><span>&times;</span></button>\n          </div>\n        </div>\n        <button class=\"btn btn-light\" (click)=\"addIngredient()\">Add Ingredient</button>\n        <button class=\"btn btn-light\" (click)=\"addIngredientSection()\">Add Section</button>\n      </div>\n    </div>\n    <hr>\n    <p><strong>Instructions</strong></p>\n    <div class=\"form-horizontal\">\n      <div *ngFor=\"let step of data.steps; index as i; trackBy: trackByFn\">\n        <div class=\"col-md-1\">{{ i+1 }}.</div>\n        <div class=\"col-md-11\">\n          <textarea class=\"form-control\" [(ngModel)]=\"data.steps[i]\" placeholder=\"Instructions\"></textarea>\n        </div>\n      </div>\n    </div>\n    <button class=\"btn btn-light\" (click)=\"addStep()\"><span class=\"glyphicon glyphicon-plus\"></span> Add Cooking Step</button>\n    <button class=\"btn btn-primary\" type=\"submit\"><span class=\"glyphicon glyphicon-save\"></span> Save Recipe</button>\n  </div>\n  {{ data | json }}\n</ng-template>\n"
 
 /***/ }),
 
@@ -612,6 +663,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var _recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../recipe */ "./src/app/recipe.ts");
 /* harmony import */ var _unit_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../unit.service */ "./src/app/unit.service.ts");
+/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modal.service */ "./src/app/modal.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -625,18 +677,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RecipeMakerComponent = /** @class */ (function () {
-    function RecipeMakerComponent(modalService, unitsApi) {
+    function RecipeMakerComponent(modalService, unitsApi, modalControl) {
+        var _this = this;
         this.modalService = modalService;
         this.unitsApi = unitsApi;
+        this.modalControl = modalControl;
+        this.modalControl.recipeMaker.subscribe(function (val) {
+            if (val === 'open') {
+                _this.modalService.open(_this.modalRef, { size: 'lg' });
+            }
+        });
     }
     RecipeMakerComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.data = new _recipe__WEBPACK_IMPORTED_MODULE_2__["Recipe"]();
         this.unitsApi.getAll().subscribe(function (us) { return _this.units = us; });
-    };
-    RecipeMakerComponent.prototype.open = function (content) {
-        this.modalService.open(content, { size: 'lg' });
     };
     RecipeMakerComponent.prototype.addIngredient = function () {
         this.data.ingredients.push({ id: '', quantity: 0, unit: '', notes: '' });
@@ -647,13 +704,17 @@ var RecipeMakerComponent = /** @class */ (function () {
     RecipeMakerComponent.prototype.trackByFn = function (index, item) {
         return index;
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('recipeMakerContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"])
+    ], RecipeMakerComponent.prototype, "modalRef", void 0);
     RecipeMakerComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-recipe-maker',
             template: __webpack_require__(/*! ./recipe-maker.component.html */ "./src/app/recipe-maker/recipe-maker.component.html"),
             styles: [__webpack_require__(/*! ./recipe-maker.component.css */ "./src/app/recipe-maker/recipe-maker.component.css")]
         }),
-        __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"], _unit_service__WEBPACK_IMPORTED_MODULE_3__["UnitService"]])
+        __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"], _unit_service__WEBPACK_IMPORTED_MODULE_3__["UnitService"], _modal_service__WEBPACK_IMPORTED_MODULE_4__["ModalService"]])
     ], RecipeMakerComponent);
     return RecipeMakerComponent;
 }());
@@ -803,7 +864,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card mb-4\" *ngIf=\"recipe\">\n  <div class=\"card-body\">\n    <div class=\"card-title\"><h4>{{ recipe.title }}\n        <button class=\"btn btn-danger float-right\" (click)=\"close()\"><span>&times;</span></button>\n      </h4>\n    </div>\n    <div class=\"card-subtitle text-muted\">\n      From {{ recipe.source.name }} ({{ recipe.source.year }}-{{ recipe.source.month }})<br />\n      Serves <span *ngIf=\"recipe.servings.min != recipe.servings.max\">{{ recipe.servings.min }} to </span>{{ recipe.servings.max }}\n    </div>\n\n    <br/>\n\n    <div class=\"row\" *ngFor=\"let section of sections\">\n      <div class=\"col-md-12\" *ngIf=\"section.label\">\n        <strong>{{ section.label }}</strong>\n      </div>\n      <div class=\"col-md-6\" *ngFor=\"let ingredient of section.ingredients\">\n        <app-ingredient [data]=\"ingredient\"></app-ingredient>\n      </div>\n    </div>\n\n    <br/>\n\n    <ngb-tabset [justify]=\"'justified'\" type=\"pills\">\n      <ngb-tab *ngIf=\"recipe.notes\" title=\"Notes\">\n        <ng-template ngbTabContent>{{ recipe.notes }}</ng-template>\n      </ngb-tab>\n      <ngb-tab *ngFor=\"let step of recipe.steps; let i = index\" title=\"{{ i + 1 }}\">\n        <ng-template ngbTabContent>\n          <p>{{ step }}</p>\n          <div *ngIf=\"timers[i].time != 0\">\n            <button class=\"btn btn-light\" (click)=\"addTimer(timers[i])\">Add {{ timers[i].time }} second timer</button>\n          </div>\n        </ng-template>\n      </ngb-tab>\n    </ngb-tabset>\n  </div>\n</div>\n"
+module.exports = "<div class=\"card mb-4\" *ngIf=\"recipe\">\n  <div class=\"card-body\">\n    <div class=\"card-title\"><h4>{{ recipe.title }}\n        <button class=\"btn btn-danger float-right\" (click)=\"close()\"><span>&times;</span></button>\n      </h4>\n    </div>\n    <div class=\"card-subtitle text-muted\">\n      From {{ recipe.source.name }}<span *ngIf=\"recipe.source.year != 0\"> ({{ recipe.source.year }}-{{ recipe.source.month }})</span><br />\n      Serves <span *ngIf=\"recipe.servings.min != recipe.servings.max\">{{ recipe.servings.min }} to </span>{{ recipe.servings.max }}\n    </div>\n\n    <br/>\n\n    <div class=\"row\" *ngFor=\"let section of sections\">\n      <div class=\"col-md-12\" *ngIf=\"section.label\">\n        <strong>{{ section.label }}</strong>\n      </div>\n      <div class=\"col-md-6\" *ngFor=\"let ingredient of section.ingredients\">\n        <app-ingredient [data]=\"ingredient\"></app-ingredient>\n      </div>\n    </div>\n\n    <br/>\n\n    <ngb-tabset [justify]=\"'justified'\" type=\"pills\">\n      <ngb-tab *ngIf=\"recipe.notes\" title=\"Notes\">\n        <ng-template ngbTabContent>{{ recipe.notes }}</ng-template>\n      </ngb-tab>\n      <ngb-tab *ngFor=\"let step of recipe.steps; let i = index\" title=\"{{ i + 1 }}\">\n        <ng-template ngbTabContent>\n          <p>{{ step }}</p>\n          <div *ngIf=\"timers[i].time != 0\">\n            <button class=\"btn btn-light\" (click)=\"addTimer(timers[i])\">Add {{ timers[i].time }} second timer</button>\n          </div>\n        </ng-template>\n      </ngb-tab>\n    </ngb-tabset>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -926,7 +987,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-template #recipeSelectContent let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Choose Recipes</h4>\n    <button type=\"button\" class=\"close\" (click)=\"modal.dismiss()\">\n      <span>&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <button *ngFor=\"let recipe of recipes\" class=\"btn btn-light btn-block\" (click)=\"select(recipe.id)\">{{ recipe.title }}</button>\n  </div>\n</ng-template>\n\n<button class=\"btn btn-lg btn-block btn-outline-primary\" (click)=\"open(recipeSelectContent)\">Open Recipes</button>\n"
+module.exports = "<ng-template #recipeSelectContent let-modal>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">Choose Recipes</h4>\n    <button type=\"button\" class=\"close\" (click)=\"modal.dismiss()\">\n      <span>&times;</span>\n    </button>\n  </div>\n  <div class=\"modal-body\">\n    <button *ngFor=\"let recipe of recipes\" class=\"btn btn-light btn-block\" (click)=\"select(recipe.id)\">{{ recipe.title }}</button>\n  </div>\n</ng-template>\n"
 
 /***/ }),
 
@@ -943,6 +1004,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var _recipe_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../recipe.service */ "./src/app/recipe.service.ts");
+/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modal.service */ "./src/app/modal.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -955,10 +1017,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SelectRecipeModalComponent = /** @class */ (function () {
-    function SelectRecipeModalComponent(api, modalService) {
+    function SelectRecipeModalComponent(api, modalService, modalControl) {
+        var _this = this;
         this.api = api;
         this.modalService = modalService;
+        this.modalControl = modalControl;
+        this.modalControl.selectRecipe.subscribe(function (val) {
+            if (val === 'open') {
+                _this.modalService.open(_this.modalRef, { size: 'lg' });
+            }
+        });
     }
     SelectRecipeModalComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -973,20 +1043,20 @@ var SelectRecipeModalComponent = /** @class */ (function () {
             });
         });
     };
-    SelectRecipeModalComponent.prototype.open = function (content) {
-        this.modalService.open(content).result.then(function (something) {
-        });
-    };
     SelectRecipeModalComponent.prototype.select = function (id) {
         this.api.loadRecipe(id);
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('recipeSelectContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"])
+    ], SelectRecipeModalComponent.prototype, "modalRef", void 0);
     SelectRecipeModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-select-recipe-modal',
             template: __webpack_require__(/*! ./select-recipe-modal.component.html */ "./src/app/select-recipe-modal/select-recipe-modal.component.html"),
             styles: [__webpack_require__(/*! ./select-recipe-modal.component.css */ "./src/app/select-recipe-modal/select-recipe-modal.component.css")]
         }),
-        __metadata("design:paramtypes", [_recipe_service__WEBPACK_IMPORTED_MODULE_2__["RecipeService"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"]])
+        __metadata("design:paramtypes", [_recipe_service__WEBPACK_IMPORTED_MODULE_2__["RecipeService"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbModal"], _modal_service__WEBPACK_IMPORTED_MODULE_3__["ModalService"]])
     ], SelectRecipeModalComponent);
     return SelectRecipeModalComponent;
 }());
