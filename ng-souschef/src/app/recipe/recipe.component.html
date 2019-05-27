@@ -30,7 +30,7 @@
         <ng-template ngbTabContent>
           <p>{{ step }}</p>
           <div *ngIf="timers[i].time != 0">
-            <button class="btn btn-light" (click)="addTimer(timers[i])">Add {{ timers[i].time }} second timer</button>
+            <button class="btn btn-light" (click)="addTimer(timers[i])">Add {{ timers[i].time | elapsedTime }} timer</button>
           </div>
         </ng-template>
       </ngb-tab>

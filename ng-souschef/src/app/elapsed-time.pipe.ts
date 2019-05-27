@@ -4,6 +4,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'elapsedTime'
 })
 export class ElapsedTimePipe implements PipeTransform {
+  format(value: number): string {
+    if (value < 10) {
+      return '0' + value;
+    }
+    else {
+      return value.toPrecision(2);
+    }
+  }
 
   transform(value: any, args?: any): any {
     var seconds: number = value as number;
@@ -25,7 +33,7 @@ export class ElapsedTimePipe implements PipeTransform {
     }
 
     if (printing) {
-      output += ':' + minutes.toPrecision(2);
+      output += ':' + this.format(minutes);
     }
     else if (minutes > 0) {
       output += minutes;
@@ -35,7 +43,7 @@ export class ElapsedTimePipe implements PipeTransform {
     if (printing) {
       output += ':';
     }
-    output += seconds.toPrecision(2);
+    output += this.format(seconds);
 
     return output;
   }
