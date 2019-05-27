@@ -7,4 +7,5 @@
 { "name" : "kilogram", "conversionFactor" : 1, "baseUnit" : null, "id" : "b1f41a90373dc837" },
 { "name" : "ounce", "conversionFactor" : 35.274, "baseUnit" : "b1f41a90373dc837", "id" : "b34bf46b9bad18b2" },
 { "id" : "c53f09d5d0cc6877", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.004928931739603077, "name" : "teaspoon" },
-{ "id" : "ee3b71905c0db8ed", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.9463552000045197, "name" : "quart" }]
+{ "id" : "ee3b71905c0db8ed", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.9463552000045197, "name" : "quart" },
+{ "id" : "4f00baed1fbd40c1", "baseUnit" : "702aaa7db3abea05", "conversionFactor" : 0.473176473, "name" : "pint "}]
